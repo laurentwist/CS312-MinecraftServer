@@ -1,1 +1,1 @@
-# CS312-MinecraftServer
+# Minecraft Bedrock Server
