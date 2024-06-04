@@ -1,0 +1,32 @@
+---
+- hosts: minecraft_server
+  tasks:
+    - name: Create directory for Minecraft server
+      file:
+        path: /minecraft_server
+        state: directory
+        mode: 0755
+
+    - name: Download Minecraft server JAR file
+      get_url:
+        url: "https://piston-data.mojang.com/v1/objects/145ff0858209bcfc164859ba735d4199aafa1eea/server.jar"
+        dest: "/minecraft_server/server.jar"
+
+    - name: Configure Minecraft server service
+      systemd:
+        name: minecraft
+        enabled: yes
+        state: started
+        daemon_reload: yes
+        no_block: yes
+        ignore_errors: yes
+        scope: system
+        unit_path: "/etc/systemd/system"
+        arguments: "server.jar"
+        description: "Minecraft Server"
+        restarted: yes
+
+    - name: Stop Minecraft server
+      systemd:
+        name: minecraft
+        state: stopped

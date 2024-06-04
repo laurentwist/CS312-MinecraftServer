@@ -1,0 +1,9 @@
+# Ignore all private and public key files
+*.pem
+*.pub
+
+# Ignore all terraform files except the ones specified 
+terraform-aws-instance/*
+!terraform-aws-instance/main.tf
+!terraform-aws-instance/variable.tf
+!terraform-aws-instance/output.tf
