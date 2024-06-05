@@ -15,7 +15,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "minecraft_server" {
-  ami           = "ami-08d70e59c07c61a3a" 
+  ami           = "ami-02e8e2a390064c712" 
   instance_type = "t2.micro"
   key_name      = aws_key_pair.minecraft_key.key_name
 
@@ -37,8 +37,8 @@ resource "aws_security_group" "minecraft_sg" {
   }
 
   ingress {
-    from_port   = 19132
-    to_port     = 19132
+    from_port   = 25565
+    to_port     = 25565
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

@@ -5,7 +5,7 @@ PRIVATE_KEY_PATH="~/ComputerScience/Minecraft-Bedrock-Server/keys/Minecraft-Serv
 HOSTS_FILE="../hosts"
 PLAYBOOK_FILE="../playbook.yml"
 TERRAFORM_DIR="terraform-aws-instance" 
-USERNAME="ubuntu"  
+USERNAME="ec2-user"  
 REGION="us-west-2" 
 
 # Navigate to the Terraform directory

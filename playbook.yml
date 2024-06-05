@@ -1,38 +1,48 @@
 ---
 - hosts: minecraft_server
+  become: yes
   tasks:
-    - name: Update apt package index
-      ansible.builtin.raw: apt update
-      changed_when: false
-
-    - name: Install Python 3.12
-      ansible.builtin.raw: apt install -y python3.12
-      changed_when: false
-
-    - name: Update alternatives to make Python 3.12 the default
-      ansible.builtin.raw: update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
-      changed_when: false
+    - name: Create minecraft_server directory
+      file:
+        path: /minecraft_server
+        state: directory
+        mode: '0755'
 
     - name: Download Minecraft server JAR file
       get_url:
         url: "https://piston-data.mojang.com/v1/objects/145ff0858209bcfc164859ba735d4199aafa1eea/server.jar"
         dest: "/minecraft_server/server.jar"
 
-    - name: Configure Minecraft server service
+    - name: Create systemd service file for Minecraft server
+      copy:
+        content: |
+          [Unit]
+          Description=Minecraft Server
+          After=network.target
+
+          [Service]
+          WorkingDirectory=/minecraft_server
+          ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar server.jar nogui
+          ExecStop=/bin/kill -s SIGINT $MAINPID
+          User=ec2-user
+          Restart=on-failure
+          RestartSec=5
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/minecraft.service
+
+    - name: Reload systemd to apply new service
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable and start Minecraft server service
       systemd:
         name: minecraft
         enabled: yes
         state: started
-        daemon_reload: yes
-        no_block: yes
-        ignore_errors: yes
-        scope: system
-        unit_path: "/etc/systemd/system"
-        arguments: "server.jar"
-        description: "Minecraft Server"
-        restarted: yes
 
-    - name: Stop Minecraft server
+    - name: Stop Minecraft server service
       systemd:
         name: minecraft
         state: stopped
