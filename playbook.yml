@@ -1,11 +1,17 @@
 ---
 - hosts: minecraft_server
   tasks:
-    - name: Create directory for Minecraft server
-      file:
-        path: /minecraft_server
-        state: directory
-        mode: 0755
+    - name: Update apt package index
+      ansible.builtin.raw: apt update
+      changed_when: false
+
+    - name: Install Python 3.12
+      ansible.builtin.raw: apt install -y python3.12
+      changed_when: false
+
+    - name: Update alternatives to make Python 3.12 the default
+      ansible.builtin.raw: update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+      changed_when: false
 
     - name: Download Minecraft server JAR file
       get_url:
