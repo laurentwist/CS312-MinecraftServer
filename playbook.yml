@@ -13,7 +13,7 @@
         url: "https://piston-data.mojang.com/v1/objects/145ff0858209bcfc164859ba735d4199aafa1eea/server.jar"
         dest: "/minecraft_server/server.jar"
 
-    - name: Create systemd service file for Minecraft server
+    - name: Create systemd file for Minecraft server
       copy:
         content: |
           [Unit]
@@ -32,17 +32,17 @@
           WantedBy=multi-user.target
         dest: /etc/systemd/system/minecraft.service
 
-    - name: Reload systemd to apply new service
+    - name: Reload systemd to apply
       systemd:
         daemon_reload: yes
 
-    - name: Enable and start Minecraft server service
+    - name: Start Minecraft server
       systemd:
         name: minecraft
         enabled: yes
         state: started
 
-    - name: Stop Minecraft server service
+    - name: Stop Minecraft server
       systemd:
         name: minecraft
         state: stopped
