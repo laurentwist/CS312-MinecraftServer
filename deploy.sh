@@ -30,10 +30,6 @@ cat <<EOL > $HOSTS_FILE
 ${EC2_PUBLIC_DNS}   ansible_user=${USERNAME}    ansible_ssh_private_key_file=${PRIVATE_KEY_PATH}
 EOL
 
-# # Install Python 3.12 on the remote server
-# echo "Installing build dependencies, compiling and installing Python 3.6 from source..."
-# ssh -i ${PRIVATE_KEY_PATH} ${USERNAME}@${EC2_PUBLIC_IP}
-
 # Run the ansible playbook 
 ansible-playbook $PLAYBOOK_FILE -i $HOSTS_FILE
 
