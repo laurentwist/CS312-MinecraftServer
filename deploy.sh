@@ -24,6 +24,13 @@ EC2_PUBLIC_IP=$(terraform output -json instance_public_ip | jq -r '.')
 # Transform the public IP address into the EC2 public DNS name
 EC2_PUBLIC_DNS="ec2-${EC2_PUBLIC_IP//./-}.${REGION}.compute.amazonaws.com"
 
+# SSH into the server and install JDK 19.0.2
+echo "Connecting to the EC2 instance and installing Java JDK 19.0.2..."
+ssh -i "$PRIVATE_KEY_PATH" "$USERNAME@$EC2_PUBLIC_DNS" << 'EOF'
+  sudo yum install -y java
+  java --version
+EOF
+
 # Write the public DNS name to the Ansible hosts file using cat
 cat <<EOL > $HOSTS_FILE
 [minecraft_server]

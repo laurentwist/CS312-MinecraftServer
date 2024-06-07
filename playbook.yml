@@ -2,16 +2,34 @@
 - hosts: minecraft_server
   become: yes
   tasks:
+    - name: Remove session.lock file
+      file:
+        path: /home/ec2-user/minecraft_server/world/session.lock
+        state: absent
+
     - name: Create minecraft_server directory
       file:
-        path: /minecraft_server
+        path: /home/ec2-user/minecraft_server
         state: directory
+        owner: ec2-user
+        group: ec2-user
         mode: '0755'
+
+    - name: Set eula.txt file
+      copy:
+        content: "eula=true"
+        dest: /home/ec2-user/minecraft_server/eula.txt
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
 
     - name: Download Minecraft server JAR file
       get_url:
-        url: "https://piston-data.mojang.com/v1/objects/145ff0858209bcfc164859ba735d4199aafa1eea/server.jar"
-        dest: "/minecraft_server/server.jar"
+        url: "https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar"
+        dest: "/home/ec2-user/minecraft_server/server.jar"
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
 
     - name: Create systemd file for Minecraft server
       copy:
@@ -21,7 +39,7 @@
           After=network.target
 
           [Service]
-          WorkingDirectory=/minecraft_server
+          WorkingDirectory=/home/ec2-user/minecraft_server
           ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar server.jar nogui
           ExecStop=/bin/kill -s SIGINT $MAINPID
           User=ec2-user
@@ -31,6 +49,9 @@
           [Install]
           WantedBy=multi-user.target
         dest: /etc/systemd/system/minecraft.service
+        owner: root
+        group: root
+        mode: '0644'
 
     - name: Reload systemd to apply
       systemd:

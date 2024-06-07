@@ -1,2 +1,2 @@
 [minecraft_server]
-ec2-34-213-192-196.us-west-2.compute.amazonaws.com   ansible_user=ec2-user    ansible_ssh_private_key_file=~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Private-Key.pem
+ec2-34-214-85-92.us-west-2.compute.amazonaws.com   ansible_user=ec2-user    ansible_ssh_private_key_file=~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Private-Key.pem
