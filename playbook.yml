@@ -6,6 +6,7 @@
       file:
         path: /home/ec2-user/minecraft_server/world/session.lock
         state: absent
+        
     - name: Create minecraft_server directory
       file:
         path: /home/ec2-user/minecraft_server

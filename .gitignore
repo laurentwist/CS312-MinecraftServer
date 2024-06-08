@@ -1,6 +1,5 @@
 # Ignore all private and public key files
-*.pem
-*.pub
+keys/*
 
 # Ignore all terraform files except the ones specified 
 terraform-aws-instance/*

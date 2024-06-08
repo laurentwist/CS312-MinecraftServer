@@ -150,6 +150,11 @@ Include the following content in your `playbook.yml` file.
 - hosts: minecraft_server
   become: yes
   tasks:
+    - name: Remove session.lock file
+      file:
+        path: /home/ec2-user/minecraft_server/world/session.lock
+        state: absent
+        
     - name: Create minecraft_server directory
       file:
         path: /home/ec2-user/minecraft_server
