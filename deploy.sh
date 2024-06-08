@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-PRIVATE_KEY_PATH="~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Private-Key.pem"
+PRIVATE_KEY_PATH="~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Key"
 HOSTS_FILE="../hosts"
 PLAYBOOK_FILE="../playbook.yml"
 TERRAFORM_DIR="terraform-aws-instance" 

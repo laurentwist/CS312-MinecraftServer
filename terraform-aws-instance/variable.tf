@@ -13,5 +13,5 @@ variable "key_name" {
 variable "public_key_path" {
   description = "The path to the public key file"
   type        = string
-  default     = "~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Private-Key.pub"
+  default     = "~/ComputerScience/Minecraft-Server/keys/Minecraft-Server-Key.pub"
 }

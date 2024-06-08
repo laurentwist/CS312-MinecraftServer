@@ -205,11 +205,6 @@ Include the following content in your `playbook.yml` file.
         name: minecraft
         enabled: yes
         state: started
-
-    - name: Stop Minecraft server
-      systemd:
-        name: minecraft
-        state: stopped
 ```
 
 ## Bash Script Configurations
@@ -306,7 +301,7 @@ After the deployment script finishes running, verify that the server is operatio
 ```
 nmap -sV -Pn -p T:25565 <instance_public_ip>
 ```
-You're now prepared to enjoy Minecraft 1.17 on your server.
+You're now prepared to enjoy Minecraft Java 1.17 on your server.
 
 ## Destroying the Minecraft Server
 This step is entirely optional and will erase all prior progress made in setting up your Minecraft Server. To destroy the Minecraft server run the following command in terminal.
