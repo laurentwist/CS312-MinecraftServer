@@ -145,7 +145,7 @@ touch playbook.yml
 ```
 
 Include the following content in your `playbook.yml` file.
-```
+```yml
 ---
 - hosts: minecraft_server
   become: yes
@@ -223,7 +223,7 @@ Create bash script files `deploy.sh` and `destroy.sh` using the following comman
 ### deploy.sh Set Up
 
 Include the following content in your `deploy.sh` file. You can modify the region according to the configuration specified in the variable.tf file earlier. You can also modify the private key path based on where you've stored your private key.
-```
+```sh
 #!/bin/bash
 
 # Define variables
@@ -276,7 +276,7 @@ chmod +x deploy.sh
 ### destroy.sh Set Up
 
 Include the following content in your `destroy.sh` file. 
-```
+```sh
 #!/bin/bash
 
 # Define variables
